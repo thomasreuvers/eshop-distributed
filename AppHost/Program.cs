@@ -24,6 +24,7 @@ var catalog = builder
 var basket = builder
     .AddProject<Projects.Basket>("basket")
     .WithReference(cache)
+    .WithReference(catalogDb)
     .WaitFor(cache);
 
 builder.Build().Run();
