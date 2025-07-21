@@ -1,0 +1,25 @@
+@Basket_HostAddress = http://localhost:7039/basket
+
+GET {{Basket_HostAddress}}/swn
+Accept: application/json
+
+###
+
+POST {{Basket_HostAddress}}
+Content-Type: application/json
+{
+    "userName": "swn",
+    "items": [
+        {
+            "productId": "01982ed6-b1c9-7ba2-96c5-be808ecc7804",
+            "quantity": 2
+        },
+        {
+            "productId": "01982ed6-b1c9-7ba2-96c5-be808ecc7805",
+            "quantity": 1
+        }
+    ]
+}
+
+###
+DELETE {{Basket_HostAddress}}/swn
