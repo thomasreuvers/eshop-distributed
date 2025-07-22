@@ -18,6 +18,17 @@ builder.Services.AddHttpClient<CatalogApiClient>(client =>
 
 builder.Services.AddMassTransitWithAssemblies(Assembly.GetExecutingAssembly());
 
+builder.Services.AddAuthentication()
+    .AddKeycloakJwtBearer(
+        serviceName: "keycloak",
+        realm: "eshop",
+        configureOptions: options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.Audience = "account";
+        });
+builder.Services.AddAuthorization();
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -33,6 +44,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapBasketEndpoints();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 
