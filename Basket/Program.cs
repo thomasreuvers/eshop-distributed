@@ -1,6 +1,9 @@
+using System.Reflection;
 using Basket.ApiClients;
 using Basket.Endpoints;
 using Basket.Services;
+using ServiceDefaults;
+using ServiceDefaults.Messaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,8 @@ builder.Services.AddHttpClient<CatalogApiClient>(client =>
 {
     client.BaseAddress = new Uri("https+http://catalog");
 });
+
+builder.Services.AddMassTransitWithAssemblies(Assembly.GetExecutingAssembly());
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

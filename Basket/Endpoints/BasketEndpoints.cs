@@ -21,7 +21,7 @@ public static class BasketEndpoints
         group.MapPost("/", async (ShoppingCart basket, BasketService service) =>
         {
             await service.UpdateBasketAsync(basket);
-            return Results.Created("GetBasket", basket);
+            return Results.Created("GetBasket", basket.UserName);
         })
         .WithName("UpdateBasket")
         .Produces<ShoppingCart>(StatusCodes.Status201Created);
