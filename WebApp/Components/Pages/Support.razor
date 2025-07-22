@@ -1,0 +1,38 @@
+@page "/Support"
+@using WebApp.ApiClients
+
+@attribute [StreamRendering(true)]
+@rendermode InteractiveServer
+
+@inject CatalogApiClient CatalogApiClient
+
+<PageTitle>Support</PageTitle>
+<h3>Support</h3>
+
+<p>Ask questions about our amazing outdoor products that you can purchase.</p>
+
+<div class="form-group">
+    <label for="query" class="form-label">Type your question:</label>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="query" placeholder="Type your question here..." @bind="queryTerm"/>
+        <button class="btn btn-primary" type="submit" id="btnSend" @onclick="DoSend">Submit</button>
+    </div>
+    <hr />
+</div>
+
+@if (response != null)
+{
+    <p><em>@response</em></p>
+}
+
+@code {
+    private string queryTerm = string.Empty;
+    private string? response;
+
+    private async Task DoSend(MouseEventArgs e)
+    {
+        response = "Loading...";
+        await Task.Delay(500); // Simulate a delay for the response
+        response = await CatalogApiClient.SupportProducts(queryTerm);
+    }
+}
